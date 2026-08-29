@@ -52,28 +52,41 @@ export function MarketsSidebar() {
                 Iranian Rial (IRR)
               </p>
               <ul className="space-y-2">
-                {m.fx.map(fx => (
-                  <li
-                    key={fx.code}
-                    className="flex items-center justify-between gap-2 rounded-md border border-[color:var(--color-border)] bg-bg px-3 py-2"
-                  >
-                    <div>
-                      <p className="text-xs font-semibold">{fx.code}</p>
-                      <p className="text-[10px] text-fg-muted">{fx.name}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-semibold tabular-nums">
-                        {formatInt(fx.irrPerUnit)}
-                      </p>
-                      <p className="text-[10px] text-fg-muted tabular-nums">
-                        1 {fx.code} = {formatInt(fx.irrPerUnit)} IRR
-                      </p>
-                    </div>
-                  </li>
-                ))}
+                {m.fx.map(fx => {
+                  const up = (fx.change24h ?? 0) >= 0
+                  return (
+                    <li
+                      key={fx.code}
+                      className="flex items-center justify-between gap-2 rounded-md border border-[color:var(--color-border)] bg-bg px-3 py-2"
+                    >
+                      <div>
+                        <p className="text-xs font-semibold">{fx.code}</p>
+                        <p className="text-[10px] text-fg-muted">{fx.name}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold tabular-nums">
+                          {formatInt(fx.irrPerUnit)}
+                        </p>
+                        <p
+                          className={`flex items-center justify-end gap-0.5 text-[10px] tabular-nums ${
+                            up ? 'text-positive' : 'text-accent'
+                          }`}
+                        >
+                          {up ? (
+                            <TrendingUp className="h-3 w-3" />
+                          ) : (
+                            <TrendingDown className="h-3 w-3" />
+                          )}
+                          {up ? '+' : ''}
+                          {(fx.change24h ?? 0).toFixed(2)}%
+                        </p>
+                      </div>
+                    </li>
+                  )
+                })}
               </ul>
               <p className="mt-1.5 text-[10px] text-fg-muted">
-                Source: open.er-api.com (reference rate, not the free market)
+                Source: tgju.org (Iran free-market)
               </p>
             </div>
           )}
