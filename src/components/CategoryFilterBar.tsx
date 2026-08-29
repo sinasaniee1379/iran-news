@@ -1,16 +1,14 @@
+import type { NewsItem } from '../data/news'
 import { CATEGORIES } from '../data/news'
-import type { Category } from '../data/news'
-import { useLocale } from '../i18n/LocaleContext'
 import { cn } from '../lib/utils'
 
 export function CategoryFilterBar({
   active,
   onChange,
 }: {
-  active: Category | 'all'
-  onChange: (c: Category | 'all') => void
+  active: NewsItem['category'] | 'all'
+  onChange: (c: NewsItem['category'] | 'all') => void
 }) {
-  const { t } = useLocale()
   return (
     <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
       <button
@@ -22,7 +20,7 @@ export function CategoryFilterBar({
             : 'border-[color:var(--color-border)] text-fg-muted hover:text-fg',
         )}
       >
-        {t.shared.viewAll}
+        All
       </button>
       {CATEGORIES.map(c => (
         <button
@@ -35,7 +33,7 @@ export function CategoryFilterBar({
               : 'border-[color:var(--color-border)] text-fg-muted hover:text-fg',
           )}
         >
-          {t.category[c.id]}
+          {c.label}
         </button>
       ))}
     </div>

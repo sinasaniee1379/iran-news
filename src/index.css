@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@fontsource-variable/vazirmatn/index.css";
 
 /* Enable class-based dark mode for Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -30,7 +29,7 @@
 }
 
 @theme {
-  --font-sans: "Vazirmatn Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-bg: var(--color-bg);
   --color-bg-soft: var(--color-bg-soft);
   --color-fg: var(--color-fg);
@@ -55,18 +54,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01", "cv11";
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* RTL: switch to logical properties and a denser Vazirmatn when in fa */
-html[dir="rtl"] body {
-  letter-spacing: 0;
-  line-height: 1.85;
-  font-size: 1.02em;
-}
-
-/* When in RTL, mirror the few icons that should flip (arrows, chevrons) */
-html[dir="rtl"] .rtl-flip {
-  transform: scaleX(-1);
 }
 
 /* Subtle grid texture for hero */

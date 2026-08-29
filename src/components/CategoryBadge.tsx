@@ -1,5 +1,4 @@
 import { CATEGORIES, type Category } from '../data/news'
-import { useLocale } from '../i18n/LocaleContext'
 import { cn } from '../lib/utils'
 
 export function CategoryBadge({
@@ -11,7 +10,6 @@ export function CategoryBadge({
   size?: 'sm' | 'md'
   className?: string
 }) {
-  const { t } = useLocale()
   const meta = CATEGORIES.find(c => c.id === category)
   if (!meta) return null
   return (
@@ -23,7 +21,7 @@ export function CategoryBadge({
         className,
       )}
     >
-      {t.category[category]}
+      {meta.label}
     </span>
   )
 }
