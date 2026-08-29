@@ -5,6 +5,7 @@ import { formatDateTime } from '../lib/utils'
 import { NewsCard } from '../components/NewsCard'
 import { BreakingTicker } from '../components/BreakingTicker'
 import { CategoryFilterBar } from '../components/CategoryFilterBar'
+import { MarketsSidebar } from '../components/MarketsSidebar'
 import { useNewsFilter } from '../hooks/useNewsFilter'
 
 export function HomePage() {
@@ -43,15 +44,18 @@ export function HomePage() {
           </Link>
         </div>
 
-        {/* Hero + secondary */}
+        {/* Hero + secondary + markets sidebar */}
         <section className="grid gap-4 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <NewsCard item={top} variant="feature" />
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {secondary.map(s => (
+                <NewsCard key={s.id} item={s} />
+              ))}
+            </div>
           </div>
-          <div className="grid gap-4">
-            {secondary.map(s => (
-              <NewsCard key={s.id} item={s} />
-            ))}
+          <div className="lg:sticky lg:top-4 lg:self-start">
+            <MarketsSidebar />
           </div>
         </section>
 
