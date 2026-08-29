@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Clock } from 'lucide-react'
-import { sortedNews, NEWS, CATEGORIES, LAST_UPDATED } from '../data/news'
+import { sortedNews, NEWS, CATEGORIES, LAST_UPDATED, LATEST_LIMIT } from '../data/news'
 import { NewsCard } from '../components/NewsCard'
 import { BreakingTicker } from '../components/BreakingTicker'
 import { CategoryFilterBar } from '../components/CategoryFilterBar'
@@ -14,7 +14,9 @@ const SEEN_STORAGE_KEY = 'iran-news:last-seen-update'
 export function HomePage() {
   const { query, setQuery, category, setCategory, filtered } = useNewsFilter()
   const { t, lang } = useLocale()
-  const all = sortedNews()
+  // Cap the home view at LATEST_LIMIT (most recent first). Category and
+  // search pages can still browse the full NEWS array.
+  const all = sortedNews().slice(0, LATEST_LIMIT)
   const top = all[0]
   const secondary = all.slice(1, 3)
 

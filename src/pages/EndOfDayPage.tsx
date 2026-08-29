@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Moon, Sunrise, ExternalLink, ListChecks, Bookmark, Share2 } from 'lucide-react'
-import { NEWS, sortedNews, CATEGORIES, END_OF_DAY_DATE } from '../data/news'
+import { NEWS, sortedNews, CATEGORIES, END_OF_DAY_DATE, LATEST_LIMIT } from '../data/news'
 import { CategoryBadge } from '../components/CategoryBadge'
 import { useLocale } from '../i18n/LocaleContext'
 import { formatDateTime, formatLongDate } from '../lib/utils'
@@ -10,8 +10,16 @@ export function EndOfDayPage() {
   const { t, lang } = useLocale()
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set())
 
-  const important = useMemo(() => sortedNews().filter(n => n.importance === 3), [])
-  const watchNext = useMemo(() => sortedNews().filter(n => n.importance === 2).slice(0, 6), [])
+  // TL;DR shows only the top stories that fit in the LATEST_LIMIT window.
+  // Otherwise on a day with 50+ items the page becomes a wall of text.
+  const important = useMemo(
+    () => sortedNews().filter(n => n.importance === 3).slice(0, Math.min(5, LATEST_LIMIT)),
+    [],
+  )
+  const watchNext = useMemo(
+    () => sortedNews().filter(n => n.importance === 2).slice(0, 6),
+    [],
+  )
 
   const grouped = useMemo(() => {
     const groups: Record<string, typeof NEWS> = {}

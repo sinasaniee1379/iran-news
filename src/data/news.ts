@@ -40,6 +40,12 @@ export const CATEGORIES: { id: Category; label: string; color: string }[] = [
 
 export const LAST_UPDATED: string = "2026-08-29T13:38:47+03:30"
 
+// How many items to surface on the home page and in the End-of-Day TL;DR.
+// The full NEWS array (and the category / search pages) can have more;
+// this is the "what's recent" cap. The 3-hour cron refills NEWS with
+// fresh items, and the home view always shows the 20 most recent.
+export const LATEST_LIMIT = 20
+
 export const NEWS: NewsItem[] = [
   {
     id: 'irgc-fears-uprising-2026-08-27',

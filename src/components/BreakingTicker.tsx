@@ -1,12 +1,18 @@
 import { Flame } from 'lucide-react'
-import { NEWS } from '../data/news'
+import { NEWS, LATEST_LIMIT } from '../data/news'
 import { useLocale } from '../i18n/LocaleContext'
 import { Link } from 'react-router-dom'
 
 export function BreakingTicker() {
   const { t, lang } = useLocale()
-  // Only items published "recently" go in the ticker
-  const tickerItems = NEWS.filter(n => n.importance >= 2).slice(0, 8)
+  // Only items published "recently" go in the ticker — top half of the
+  // LATEST_LIMIT window. Keeps the marquee tight and not full of stale
+  // headlines that have scrolled to the bottom of the home view.
+  const tickerItems = NEWS
+    .filter(n => n.importance >= 2)
+    .slice()
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, Math.ceil(LATEST_LIMIT / 2))
   const loop = [...tickerItems, ...tickerItems]
 
   const labelFor = (n: typeof NEWS[number]) => (lang === 'fa' && n.titleFa) || n.title
