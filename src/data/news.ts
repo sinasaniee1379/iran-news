@@ -35,6 +35,11 @@ export const CATEGORIES: { id: Category; label: string; color: string }[] = [
   { id: 'energy', label: 'Energy', color: 'bg-accent-soft text-accent' },
 ]
 
+// Last refresh timestamp (Asia/Tehran ISO). Updated by the auto-refresh
+// cron job (see /home/sina/.local/bin/refresh_iran_news.py). Before the
+// first cron run, this falls back to the build time.
+export const LAST_UPDATED: string = '2026-08-29T00:00:00+03:30'
+
 export const NEWS: NewsItem[] = [
   {
     id: 'irgc-fears-uprising-2026-08-27',

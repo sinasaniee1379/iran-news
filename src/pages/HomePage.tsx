@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Clock } from 'lucide-react'
-import { sortedNews, NEWS, CATEGORIES } from '../data/news'
+import { sortedNews, NEWS, CATEGORIES, LAST_UPDATED } from '../data/news'
+import { formatDateTime } from '../lib/utils'
 import { NewsCard } from '../components/NewsCard'
 import { BreakingTicker } from '../components/BreakingTicker'
 import { CategoryFilterBar } from '../components/CategoryFilterBar'
@@ -28,6 +29,10 @@ export function HomePage() {
             <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">
               Today in Iran
             </h1>
+            <p className="mt-1 text-xs text-fg-muted">
+              Last updated:{' '}
+              <time dateTime={LAST_UPDATED}>{formatDateTime(LAST_UPDATED)}</time>
+            </p>
           </div>
           <Link
             to="/end-of-day"
