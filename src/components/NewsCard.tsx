@@ -3,6 +3,7 @@ import { Clock, MapPin, ArrowUpRight } from 'lucide-react'
 import type { NewsItem } from '../data/news'
 import { CategoryBadge } from './CategoryBadge'
 import { timeAgo } from '../lib/utils'
+import { useLocale } from '../i18n/LocaleContext'
 import { cn } from '../lib/utils'
 
 interface Props {
@@ -10,7 +11,21 @@ interface Props {
   variant?: 'default' | 'compact' | 'feature'
 }
 
+function pick(item: NewsItem, key: 'title' | 'summary' | 'location', lang: 'en' | 'fa') {
+  if (lang === 'fa') {
+    const faKey = (key + 'Fa') as 'titleFa' | 'summaryFa' | 'locationFa'
+    const fa = item[faKey]
+    if (fa) return fa
+  }
+  return item[key]
+}
+
 export function NewsCard({ item, variant = 'default' }: Props) {
+  const { t, lang } = useLocale()
+  const title = pick(item, 'title', lang)
+  const summary = pick(item, 'summary', lang)
+  const location = pick(item, 'location', lang)
+
   if (variant === 'feature') {
     return (
       <Link
@@ -25,25 +40,25 @@ export function NewsCard({ item, variant = 'default' }: Props) {
             <CategoryBadge category={item.category} size="md" />
             {item.importance === 3 && (
               <span className="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-bg">
-                Top story
+                {t.shared.topStory}
               </span>
             )}
           </div>
           <h2 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
-            {item.title}
+            {title}
           </h2>
           <p className="mt-3 max-w-2xl text-sm text-fg-muted sm:text-base">
-            {item.summary}
+            {summary}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-fg-muted">
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" />
-              {timeAgo(item.publishedAt)}
+              {timeAgo(item.publishedAt, lang)}
             </span>
-            {item.location && (
+            {location && (
               <span className="inline-flex items-center gap-1">
                 <MapPin className="h-3.5 w-3.5" />
-                {item.location}
+                {location}
               </span>
             )}
             <span>{item.source.name}</span>
@@ -63,17 +78,16 @@ export function NewsCard({ item, variant = 'default' }: Props) {
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex items-center gap-2">
             <CategoryBadge category={item.category} />
-            <span className="text-[11px] text-fg-muted">{timeAgo(item.publishedAt)}</span>
+            <span className="text-[11px] text-fg-muted">{timeAgo(item.publishedAt, lang)}</span>
           </div>
           <h3 className="line-clamp-2 text-sm font-medium leading-snug group-hover:text-accent">
-            {item.title}
+            {title}
           </h3>
         </div>
       </Link>
     )
   }
 
-  // default
   return (
     <Link
       to={`/article/${item.id}`}
@@ -81,18 +95,18 @@ export function NewsCard({ item, variant = 'default' }: Props) {
     >
       <div className="mb-3 flex items-center justify-between">
         <CategoryBadge category={item.category} />
-        <span className="text-[11px] text-fg-muted">{timeAgo(item.publishedAt)}</span>
+        <span className="text-[11px] text-fg-muted">{timeAgo(item.publishedAt, lang)}</span>
       </div>
       <h3 className="line-clamp-2 text-lg font-semibold leading-snug tracking-tight group-hover:text-accent">
-        {item.title}
+        {title}
       </h3>
-      <p className="mt-2 line-clamp-3 text-sm text-fg-muted">{item.summary}</p>
+      <p className="mt-2 line-clamp-3 text-sm text-fg-muted">{summary}</p>
       <div className="mt-4 flex flex-1 items-end justify-between pt-2">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-fg-muted">
-          {item.location && (
+          {location && (
             <span className="inline-flex items-center gap-1">
               <MapPin className="h-3 w-3" />
-              {item.location}
+              {location}
             </span>
           )}
           <span>{item.source.name}</span>

@@ -16,13 +16,16 @@ export type Category =
 export interface NewsItem {
   id: string
   title: string
+  titleFa?: string
   summary: string
+  summaryFa?: string
   category: Category
   publishedAt: string // ISO 8601 in Asia/Tehran
   source: { name: string; url: string }
   importance: 1 | 2 | 3 // 3 = top story of the day
   imageUrl?: string
   location?: string
+  locationFa?: string
   tags?: string[]
 }
 
@@ -40,13 +43,16 @@ export const NEWS: NewsItem[] = [
   {
     id: 'irgc-fears-uprising-2026-08-27',
     title: "IRGC Intelligence warns of another uprising as it blames \"foreign adversaries\"",
+    titleFa: 'هشدار اطلاعات سپاه درباره‌ی اعتراضات تازه؛ «دشمنان خارجی» مقصر اعلام شدند',
     summary:
       "A statement issued by the IRGC Intelligence Organization on Aug 27 claims that after failing to topple the government through military pressure, foreign actors have shifted to stoking domestic unrest. The statement lists exploiting shortages, fomenting dissatisfaction, and \"inciting people to extend dissatisfaction to the streets\" — a rare official acknowledgement that street-level protest, not foreign war, is what the security apparatus actually fears.",
+    summaryFa: 'بیانیه‌ی ۶ شهریور سازمان اطلاعات سپاه مدعی است که پس از ناکامی در سرنگونی حکومت از طریق فشار نظامی، بازیگران خارجی رویکرد خود را به سمت دامن‌زدن به نارضایتی داخلی تغییر داده‌اند. این بیانیه به «استفاده از کمبودها» و «کشاندن نارضایتی به خیابان‌ها» اشاره می‌کند — اعترافی کم‌سابقه که نه جنگ خارجی، بلکه اعتراض خیابانی همان چیزی است که دستگاه امنیتی واقعاً از آن می‌هراسد.',
     category: 'politics',
     publishedAt: '2026-08-29T09:30:00+03:30',
     source: { name: 'NCRI', url: 'https://www.ncr-iran.org/en/news/iran-news-in-brief-august-29-2026/' },
     importance: 3,
     location: 'Tehran',
+    locationFa: 'تهران',
     tags: ['IRGC', 'protests', 'security'],
   },
 
@@ -54,13 +60,16 @@ export const NEWS: NewsItem[] = [
   {
     id: 'fuel-shortage-spreads-2026-08-26',
     title: "Fuel shortage spreads as officials signal a price hike is \"inevitable\"",
+    titleFa: 'گسترش بحران سوخت؛ مقامات: افزایش قیمت «اجتناب‌ناپذیر» است',
     summary:
       "Long gasoline queues were reported across Tehran, the Tehran–Karaj highway, Karaj and Mashhad on Aug 26. The state-run Shargh newspaper confirmed city-wide lines, while another state outlet cited a daily deficit of roughly 14 million liters. Vice President Mohammad Jafar Ghaempanah said prices would \"inevitably\" be revised — a sharper message than the spokesperson's denial a day earlier.",
+    summaryFa: 'در ۵ شهریور صف‌های طولانی بنزین در تهران، اتوبان تهران–کرج، کرج و مشهد گزارش شد. روزنامه‌ی دولتی شرق وجود صف در سطح شهر را تأیید کرد و یک رسانه‌ی دولتی دیگر از کسری روزانه‌ی حدود ۱۴ میلیون لیتری خبر داد. معاون اجرایی رئیس‌جمهور، محمدجعفر قائم‌پناه، گفت قیمت‌ها «به‌ناچار» بازنگری خواهند شد — لحنی تندتر از تکذیب سخنگوی دولت یک روز پیش از آن.',
     category: 'economy',
     publishedAt: '2026-08-29T08:00:00+03:30',
     source: { name: 'Iran News in Brief', url: 'https://www.ncr-iran.org/en/news/iran-news-in-brief-august-29-2026/' },
     importance: 3,
     location: 'Tehran, Mashhad, Karaj',
+    locationFa: 'تهران، مشهد، کرج',
     tags: ['fuel', 'inflation', 'subsidies'],
   },
 
@@ -68,13 +77,16 @@ export const NEWS: NewsItem[] = [
   {
     id: 'oman-pakistan-mediation-2026-08-28',
     title: "Omani and Pakistani envoys in Tehran as US–Iran back-channel heats up",
+    titleFa: 'سفر فرستادگان عمان و پاکستان به تهران؛ کانال پشتی آمریکا و ایران فعال‌تر شد',
     summary:
       "Omani Foreign Minister Badr al-Busaidi and Pakistani army chief Asim Munir both visited Tehran this week. Analysts frame the visits as an attempt to pull the US and Iran back from a military confrontation over the Strait of Hormuz. Inside Iran's own establishment the picture is split: at least one lawmaker has publicly called for a military response, while the foreign ministry continues to favor the negotiating track.",
+    summaryFa: 'وزیر خارجه‌ی عمان بدر البوسعیدی و رئیس ستاد ارتش پاکستان اسیم منیر این هفته به تهران سفر کردند. تحلیلگران این سفرها را تلاشی برای عقب‌کشاندن آمریکا و ایران از رویارویی نظامی بر سر تنگه‌ی هرمز می‌خوانند. در درون حاکمیت ایران اما اختلاف وجود دارد: دست‌کم یک نماینده‌ی مجلس خواستار واکنش نظامی شده، در حالی که وزارت خارجه همچنان مسیر مذاکره را ترجیح می‌دهد.',
     category: 'diplomacy',
     publishedAt: '2026-08-29T07:15:00+03:30',
     source: { name: 'Iran Newswire', url: 'https://irannewswire.org/iran-islamabad-agreement-us-talks-hormuz-divisions/' },
     importance: 3,
     location: 'Tehran',
+    locationFa: 'تهران',
     tags: ['Oman', 'Pakistan', 'Hormuz', 'US-Iran'],
   },
 
@@ -82,8 +94,10 @@ export const NEWS: NewsItem[] = [
   {
     id: 'treasury-banque-misr-2026-08-28',
     title: "US Treasury moves to sanction UAE branch of Egyptian bank over Iran ties",
+    titleFa: 'اقدام خزانه‌داری آمریکا برای تحریم شعبه‌ی اماراتی بانک مصری به‌دلیل ارتباط با ایران',
     summary:
       "The US Treasury announced plans to cut off Banque Misr UAE from the US financial system, saying the branch processed roughly $1.8 billion over the past two years for around 100 companies identified as part of Iran's shadow-banking network. The action comes ahead of a US-hosted G20 finance meeting that is expected to press other jurisdictions to wind down Iran-related business.",
+    summaryFa: 'خزانه‌داری آمریکا از قصد خود برای قطع دسترسی بانک مصر (امارات) به نظام مالی آمریکا خبر داد و اعلام کرد این شعبه در دو سال گذشته حدود ۱.۸ میلیارد دلار برای نزدیک به ۱۰۰ شرکت متعلق به شبکه‌ی بانکی پنهان ایران جابه‌جا کرده است. این اقدام در آستانه‌ی نشست وزیران دارایی G20 به میزبانی آمریکا صورت می‌گیرد که قرار است دیگر کشورها را برای کاهش روابط تجاری با ایران تحت فشار بگذارد.',
     category: 'diplomacy',
     publishedAt: '2026-08-28T22:00:00+03:30',
     source: { name: 'CNBC', url: 'https://www.cnbc.com/2026/08/28/treasury-uae-banque-misr-sanctions-iran.html' },
@@ -95,13 +109,16 @@ export const NEWS: NewsItem[] = [
   {
     id: 'executions-shahrivar-2026-08-26',
     title: "23 executions in four days, including a philanthropist from the January protests",
+    titleFa: '۲۳ اعدام در چهار روز؛ از جمله یک نیکوکار بازداشت‌شده در اعتراضات دی‌ماه',
     summary:
       "Between Aug 23 and Aug 26 — the first four days of the Iranian month of Shahrivar — authorities carried out at least 23 executions, an average of roughly one every four hours. Among them was Majid Adineh, a Karaj-based philanthropist detained during the January 2026 nationwide protests. His family was informed of the execution only hours beforehand, and his case file is reported to contain serious evidentiary gaps.",
+    summaryFa: 'بین ۱ تا ۴ شهریور (۲۳ تا ۲۶ اوت) مقامات دست‌کم ۲۳ نفر را اعدام کردند — به‌طور متوسط تقریباً هر چهار ساعت یک اعدام. در میان اعدام‌شدگان، مجید آدینه، نیکوکار ساکن کرج که در جریان اعتراضات سراسری دی‌ماه ۱۴۰۴ بازداشت شده بود نیز به چشم می‌خورد. خانواده‌ی او تنها چند ساعت پیش از اجرای حکم باخبر شدند و گفته می‌شود پرونده‌ی او دارای خلأهای جدی است.',
     category: 'human-rights',
     publishedAt: '2026-08-28T18:30:00+03:30',
     source: { name: 'NCRI', url: 'https://www.ncr-iran.org/en/news/iran-news-in-brief-august-29-2026/' },
     importance: 3,
     location: 'Karaj',
+    locationFa: 'کرج',
     tags: ['executions', 'January 2026 protests', 'death penalty'],
   },
 

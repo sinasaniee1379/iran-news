@@ -60,7 +60,13 @@ body {
 /* RTL: switch to logical properties and a denser Vazirmatn when in fa */
 html[dir="rtl"] body {
   letter-spacing: 0;
-  line-height: 1.7;
+  line-height: 1.85;
+  font-size: 1.02em;
+}
+
+/* When in RTL, mirror the few icons that should flip (arrows, chevrons) */
+html[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
 }
 
 /* Subtle grid texture for hero */

@@ -5,10 +5,12 @@ import { NewsCard } from '../components/NewsCard'
 import { CategoryFilterBar } from '../components/CategoryFilterBar'
 import { useState } from 'react'
 import { sortedNews } from '../data/news'
+import { useLocale } from '../i18n/LocaleContext'
 import { cn } from '../lib/utils'
 
 export function CategoryPage() {
   const { id } = useParams<{ id: Category }>()
+  const { t } = useLocale()
   const meta = CATEGORIES.find(c => c.id === id)
   const [active, setActive] = useState<Category | 'all'>((id as Category) ?? 'all')
 
@@ -16,9 +18,9 @@ export function CategoryPage() {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <Link to="/" className="inline-flex items-center gap-1 text-sm text-fg-muted hover:text-fg">
-          <ArrowLeft className="h-4 w-4" /> Back to home
+          <ArrowLeft className="h-4 w-4" /> {t.article.back}
         </Link>
-        <p className="mt-6 text-lg">Section not found.</p>
+        <p className="mt-6 text-lg">{t.categoryPage.notFound}</p>
       </main>
     )
   }
@@ -28,15 +30,15 @@ export function CategoryPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <Link to="/" className="inline-flex items-center gap-1 text-sm text-fg-muted hover:text-fg">
-        <ArrowLeft className="h-4 w-4" /> Back
+        <ArrowLeft className="h-4 w-4" /> {t.article.back}
       </Link>
 
       <div className="mt-4 flex items-center gap-3">
         <span className={cn('h-3 w-3 rounded-full', meta.color)} />
-        <h1 className="text-3xl font-semibold tracking-tight">{meta.label}</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">{t.category[meta.id]}</h1>
       </div>
       <p className="mt-1 text-sm text-fg-muted">
-        {items.length} {items.length === 1 ? 'story' : 'stories'} in this section
+        {t.categoryPage.count(items.length)}
       </p>
 
       <div className="mt-6">
@@ -46,7 +48,7 @@ export function CategoryPage() {
       <section className="mt-6">
         {items.length === 0 ? (
           <p className="rounded-lg border border-dashed border-[color:var(--color-border)] p-8 text-center text-sm text-fg-muted">
-            No stories in this section yet.
+            {t.categoryPage.empty}
           </p>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

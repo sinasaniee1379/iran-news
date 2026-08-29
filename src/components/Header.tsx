@@ -2,14 +2,15 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Search, Sun, Moon, Globe2 } from 'lucide-react'
 import { useTheme } from '../hooks/useTheme'
 import { CATEGORIES } from '../data/news'
+import { useLocale } from '../i18n/LocaleContext'
 import { cn } from '../lib/utils'
 import { useState, useEffect } from 'react'
 
 export function Header() {
   const { theme, toggle } = useTheme()
+  const { lang, toggle: toggleLang, t } = useLocale()
   const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
-  const [lang, setLang] = useState<'en' | 'fa'>('en')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -17,12 +18,6 @@ export function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    const html = document.documentElement
-    html.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr')
-    html.setAttribute('lang', lang)
-  }, [lang])
 
   return (
     <header
@@ -38,10 +33,10 @@ export function Header() {
           <span className="grid h-8 w-8 place-items-center rounded-md bg-accent text-bg">
             <Globe2 className="h-4 w-4" strokeWidth={2.5} />
           </span>
-          <span className="text-base tracking-tight">Iran Today</span>
+          <span className="text-base tracking-tight">{t.brand}</span>
         </Link>
 
-        <nav className="ml-4 hidden items-center gap-1 lg:flex">
+        <nav className="ms-4 hidden items-center gap-1 lg:flex">
           <NavLink
             to="/"
             end
@@ -54,7 +49,7 @@ export function Header() {
               )
             }
           >
-            Home
+            {t.nav.home}
           </NavLink>
           {CATEGORIES.slice(0, 5).map(c => (
             <NavLink
@@ -69,7 +64,7 @@ export function Header() {
                 )
               }
             >
-              {c.label}
+              {t.category[c.id]}
             </NavLink>
           ))}
           <NavLink
@@ -83,14 +78,14 @@ export function Header() {
               )
             }
           >
-            End of Day
+            {t.nav.endOfDay}
           </NavLink>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ms-auto flex items-center gap-1">
           <Link
             to="/search"
-            aria-label="Search"
+            aria-label={t.header.searchAria}
             className={cn(
               'grid h-9 w-9 place-items-center rounded-md transition-colors hover:bg-bg-soft',
               location.pathname === '/search' && 'bg-bg-soft',
@@ -100,15 +95,15 @@ export function Header() {
           </Link>
           <button
             type="button"
-            aria-label="Toggle language"
-            onClick={() => setLang(lang === 'en' ? 'fa' : 'en')}
+            aria-label={t.header.toggleLanguage}
+            onClick={toggleLang}
             className="grid h-9 w-9 place-items-center rounded-md text-sm font-semibold transition-colors hover:bg-bg-soft"
           >
             {lang === 'en' ? 'فا' : 'EN'}
           </button>
           <button
             type="button"
-            aria-label="Toggle theme"
+            aria-label={t.header.toggleTheme}
             onClick={toggle}
             className="grid h-9 w-9 place-items-center rounded-md transition-colors hover:bg-bg-soft"
           >
