@@ -212,3 +212,9 @@ export function sortedNews(items: NewsItem[] = NEWS): NewsItem[] {
 }
 
 export const END_OF_DAY_DATE = '2026-08-29'
+
+// Last refresh timestamp (Asia/Tehran ISO). Updated by the auto-refresh
+// cron job (see /home/sina/.local/bin/refresh_iran_news.py). When the
+// site is freshly built and the cron hasn't run yet, this falls back to
+// the build time.
+export const LAST_UPDATED: string = '2026-08-29T00:00:00+03:30'

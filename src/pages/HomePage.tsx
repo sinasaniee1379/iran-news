@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Clock } from 'lucide-react'
-import { sortedNews, NEWS, CATEGORIES } from '../data/news'
+import { sortedNews, NEWS, CATEGORIES, LAST_UPDATED } from '../data/news'
 import { NewsCard } from '../components/NewsCard'
 import { BreakingTicker } from '../components/BreakingTicker'
 import { CategoryFilterBar } from '../components/CategoryFilterBar'
 import { useNewsFilter } from '../hooks/useNewsFilter'
 import { useLocale } from '../i18n/LocaleContext'
-import { formatLongDate } from '../lib/utils'
+import { formatLongDate, formatDateTime } from '../lib/utils'
+import { useEffect, useState } from 'react'
+
+const SEEN_STORAGE_KEY = 'iran-news:last-seen-update'
 
 export function HomePage() {
   const { query, setQuery, category, setCategory, filtered } = useNewsFilter()
@@ -14,6 +17,30 @@ export function HomePage() {
   const all = sortedNews()
   const top = all[0]
   const secondary = all.slice(1, 3)
+
+  // Highlight how many items are new since the user's last visit
+  const [newCount, setNewCount] = useState(0)
+  useEffect(() => {
+    try {
+      const seen = window.localStorage.getItem(SEEN_STORAGE_KEY)
+      if (!seen) {
+        setNewCount(0)
+        return
+      }
+      const seenTs = new Date(seen).getTime()
+      const count = all.filter(n => new Date(n.publishedAt).getTime() > seenTs).length
+      setNewCount(count)
+    } catch {
+      setNewCount(0)
+    }
+  }, [all])
+
+  const markAllSeen = () => {
+    try {
+      window.localStorage.setItem(SEEN_STORAGE_KEY, new Date().toISOString())
+      setNewCount(0)
+    } catch {}
+  }
 
   return (
     <div>
@@ -28,6 +55,10 @@ export function HomePage() {
             <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">
               {t.home.todayInIran}
             </h1>
+            <p className="mt-1 text-xs text-fg-muted">
+              {lang === 'fa' ? 'آخرین به‌روزرسانی: ' : 'Last refreshed: '}
+              <time dateTime={LAST_UPDATED}>{formatDateTime(LAST_UPDATED, lang)}</time>
+            </p>
           </div>
           <Link
             to="/end-of-day"
@@ -37,6 +68,22 @@ export function HomePage() {
             {t.home.endOfDayCta}
           </Link>
         </div>
+
+        {newCount > 0 && (
+          <div className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-accent/30 bg-accent-soft px-4 py-2.5 text-sm">
+            <span className="text-accent">
+              {lang === 'fa'
+                ? `${newCount} خبر تازه از آخرین بازدید شما`
+                : `${newCount} new ${newCount === 1 ? 'story' : 'stories'} since your last visit`}
+            </span>
+            <button
+              onClick={markAllSeen}
+              className="rounded-md border border-accent/40 px-2.5 py-1 text-xs font-medium text-accent hover:bg-accent hover:text-bg"
+            >
+              {lang === 'fa' ? 'پاک کن' : 'Mark as read'}
+            </button>
+          </div>
+        )}
 
         <section className="grid gap-4 lg:grid-cols-3">
           <div className="lg:col-span-2">
