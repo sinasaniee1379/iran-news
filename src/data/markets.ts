@@ -24,37 +24,22 @@ export interface MarketsSnapshot {
 }
 
 export const MARKETS: MarketsSnapshot = {
-  "fetchedAt": "2026-08-29T20:33:11+03:30",
+  "fetchedAt": "2026-08-30T12:02:58+03:30",
   "crypto": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "priceUsd": 78027.0,
-      "change24h": 0.41
+      "priceUsd": 78136.0,
+      "change24h": 0.74
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "priceUsd": 2451.36,
-      "change24h": 0.52
+      "priceUsd": 2458.07,
+      "change24h": 0.95
     }
   ],
-  "fx": [
-    {
-      "code": "USD",
-      "name": "US Dollar",
-      "irrPerUnit": 2060100,
-      "change24h": 0.0,
-      "perIrr": 4.85413e-07
-    },
-    {
-      "code": "EUR",
-      "name": "Euro",
-      "irrPerUnit": 2387900,
-      "change24h": 0.0,
-      "perIrr": 4.18778e-07
-    }
-  ]
+  "fx": []
 }
