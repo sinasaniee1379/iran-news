@@ -40,49 +40,10 @@ export const CATEGORIES: { id: Category; label: string; color: string }[] = [
 // Last refresh timestamp (Asia/Tehran ISO). Updated by the auto-refresh
 // cron job (see /home/sina/.local/bin/refresh_iran_news.py). Before the
 // first cron run, this falls back to the build time.
-export const LAST_UPDATED: string = "2026-08-30T12:02:58+03:30"
+export const LAST_UPDATED: string = "2026-08-30T12:09:24+03:30"
 
 export const NEWS: NewsItem[] = [
-  {
-    id: 'irgc-fears-uprising-2026-08-27',
-    title: "IRGC Intelligence warns of another uprising as it blames \"foreign adversaries\"",
-    summary:
-      "A statement issued by the IRGC Intelligence Organization on Aug 27 claims that after failing to topple the government through military pressure, foreign actors have shifted to stoking domestic unrest. The statement lists exploiting shortages, fomenting dissatisfaction, and \"inciting people to extend dissatisfaction to the streets\" — a rare official acknowledgement that street-level protest, not foreign war, is what the security apparatus actually fears.",
-    category: 'politics',
-    publishedAt: '2026-08-29T09:30:00+03:30',
-    source: { name: 'NCRI', url: 'https://www.ncr-iran.org/en/news/iran-news-in-brief-august-29-2026/' },
-    importance: 3,
-    location: 'Tehran',
-    tags: ['IRGC', 'protests', 'security'],
-  },
-
-  {
-    id: 'fuel-shortage-spreads-2026-08-26',
-    title: "Fuel shortage spreads as officials signal a price hike is \"inevitable\"",
-    summary:
-      "Long gasoline queues were reported across Tehran, the Tehran–Karaj highway, Karaj and Mashhad on Aug 26. The state-run Shargh newspaper confirmed city-wide lines, while another state outlet cited a daily deficit of roughly 14 million liters. Vice President Mohammad Jafar Ghaempanah said prices would \"inevitably\" be revised — a sharper message than the spokesperson's denial a day earlier.",
-    category: 'economy',
-    publishedAt: '2026-08-29T08:00:00+03:30',
-    source: { name: 'Iran News in Brief', url: 'https://www.ncr-iran.org/en/news/iran-news-in-brief-august-29-2026/' },
-    importance: 3,
-    location: 'Tehran, Mashhad, Karaj',
-    tags: ['fuel', 'inflation', 'subsidies'],
-  },
-
-  {
-    id: 'oman-pakistan-mediation-2026-08-28',
-    title: "Omani and Pakistani envoys in Tehran as US–Iran back-channel heats up",
-    summary:
-      "Omani Foreign Minister Badr al-Busaidi and Pakistani army chief Asim Munir both visited Tehran this week. Analysts frame the visits as an attempt to pull the US and Iran back from a military confrontation over the Strait of Hormuz. Inside Iran's own establishment the picture is split: at least one lawmaker has publicly called for a military response, while the foreign ministry continues to favor the negotiating track.",
-    category: 'diplomacy',
-    publishedAt: '2026-08-29T07:15:00+03:30',
-    source: { name: 'Iran Newswire', url: 'https://irannewswire.org/iran-islamabad-agreement-us-talks-hormuz-divisions/' },
-    importance: 3,
-    location: 'Tehran',
-    tags: ['Oman', 'Pakistan', 'Hormuz', 'US-Iran'],
-  },
-
-  // ── Auto-fetched from NewsAPI daily at 12:00 IRST ──
+  
   {
     id: "api-2df48945b0e2dbdd",
     title: "Ex-IRGC commander Rezaei outlines conditions for US-Iran agreement",
