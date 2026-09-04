@@ -24,7 +24,7 @@ export interface MarketsSnapshot {
 }
 
 export const MARKETS: MarketsSnapshot = {
-  "fetchedAt": "2026-09-04T12:18:32+03:30",
+  "fetchedAt": "2026-09-04T12:18:56+03:30",
   "crypto": [
     {
       "id": "bitcoin",
